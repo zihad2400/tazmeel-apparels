@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Backup files
+*.bak
+*.bak2
+*.backup
+*~
+
+# Test folders
+/public/logo-test
+
+# Environment backups
+.env.local.bak*
+.env.local.backup*
+.env.local.corrupted*
+.env.local.broken*

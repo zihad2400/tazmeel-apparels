@@ -1,0 +1,48 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/pages/**/*.{js,jsx}",
+    "./src/components/**/*.{js,jsx}",
+    "./src/app/**/*.{js,jsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          dark: "#0F3D2E",
+          darker: "#082A1F",
+          green: "#1B5E45",
+          gold: "#C9A227",
+          goldLight: "#E5C76B",
+          cream: "#F5F1E8",
+          sand: "#EAE3D2",
+        },
+      },
+      fontFamily: {
+        serif: ["var(--font-playfair)", "serif"],
+        sans: ["var(--font-inter)", "sans-serif"],
+      },
+    },
+  },
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        tazmeel: {
+          primary: "#0F3D2E",
+          "primary-content": "#F5F1E8",
+          secondary: "#C9A227",
+          "secondary-content": "#0F3D2E",
+          accent: "#1B5E45",
+          neutral: "#082A1F",
+          "base-100": "#F5F1E8",
+          "base-200": "#EAE3D2",
+          "base-300": "#D9CFB8",
+          "base-content": "#0F3D2E",
+        },
+      },
+    ],
+    darkTheme: "tazmeel",
+    logs: false,
+  },
+};
