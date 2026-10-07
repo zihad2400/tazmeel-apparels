@@ -1,17 +1,9 @@
-import { Inter, Playfair_Display, Italianno } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
+import BrandToast from "@/components/ui/BrandToast";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-});
-const italianno = Italianno({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-italianno",
-});
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata = {
   title: "Tazmeel Apparels — Islamic & Modest Garments Manufacturer",
@@ -41,10 +33,10 @@ export default function RootLayout({ children }) {
       </head>
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${playfair.variable} ${italianno.variable} font-sans antialiased`}
+        className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
       >
         {children}
-        <Toaster position="top-right" />
+        <BrandToast />
       </body>
     </html>
   );

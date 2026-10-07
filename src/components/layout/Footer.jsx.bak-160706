@@ -7,19 +7,13 @@ import {
   Mail,
   Clock,
   Send,
-  Loader2,
   MessageCircle,
   ArrowUp,
-  ArrowRight,
   Heart,
   Award,
   Truck,
   Package,
   Shield,
-  Navigation,
-  Copy,
-  Check,
-  ExternalLink,
 } from "lucide-react";
 import {
   FaFacebookF,
@@ -28,7 +22,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { showSuccess, showError } from "@/lib/showToast";
-import { SITE_CONFIG, getWhatsAppLink, getMapLink } from "@/lib/siteConfig";
+import { SITE_CONFIG, getWhatsAppLink } from "@/lib/siteConfig";
 
 const quickLinks = [
   { href: "#home", label: "Home" },
@@ -75,7 +69,13 @@ const socialLinks = [
   },
 ];
 
-const otherContactInfo = [
+const contactInfo = [
+  {
+    icon: MapPin,
+    label: "Address",
+    value: SITE_CONFIG.address,
+    href: `https://maps.google.com/?q=${encodeURIComponent(SITE_CONFIG.address)}`,
+  },
   {
     icon: Phone,
     label: "Phone",
@@ -99,25 +99,22 @@ const otherContactInfo = [
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  // ⭐ Copy Address to Clipboard
-  const handleCopyAddress = async () => {
-    try {
-      await navigator.clipboard.writeText(SITE_CONFIG.address);
-      setCopied(true);
-      showSuccess("Address Copied!", "Full address copied to clipboard.");
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      showError("Copy Failed", "Please copy manually.");
-    }
-  };
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (!email) return showError("Email Required", "Please enter your email.");
+
+    if (!email) {
+      return showError("Email Required", "Please enter your email address.");
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return showError("Invalid Email", "Please enter a valid email address.");
+    }
 
     setLoading(true);
+
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
@@ -125,17 +122,18 @@ export default function Footer() {
         body: JSON.stringify({ email }),
       });
       const data = await res.json();
+
       if (data.success) {
         showSuccess(
-          "Subscribed Successfully!",
+          "Subscribed Successfully! 🎉",
           "Thank you for joining our newsletter."
         );
         setEmail("");
       } else {
-        showError("Subscription Failed", data.error);
+        showError("Subscription Failed", data.error || "Please try again.");
       }
     } catch {
-      showError("Network Error", "Please try again later.");
+      showError("Network Error", "Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -156,7 +154,7 @@ export default function Footer() {
       {/* Top Gold Line */}
       <div className="relative h-1 bg-gradient-to-r from-transparent via-brand-gold to-transparent" />
 
-      {/* Newsletter Strip */}
+      {/* ═══════ NEWSLETTER STRIP ═══════ */}
       <div className="relative bg-brand-dark border-b border-brand-gold/20">
         <div className="container-custom py-8 sm:py-10">
           <div className="grid lg:grid-cols-2 gap-6 items-center">
@@ -178,20 +176,38 @@ export default function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="flex-1 px-4 py-3 bg-brand-darker border border-brand-gold/30 rounded-full focus:outline-none focus:border-brand-gold text-brand-cream placeholder:text-brand-cream/40 text-base"
+                className="flex-1 px-4 py-3 bg-brand-darker border border-brand-gold/30 rounded-full focus:outline-none focus:border-brand-gold text-brand-cream placeholder:text-brand-cream/40 text-base disabled:opacity-60"
                 disabled={loading}
               />
+
+              {/* ⭐⭐⭐ ADVANCED LOADING SUBSCRIBE BUTTON ⭐⭐⭐ */}
               <button
                 type="submit"
                 disabled={loading}
-                className="shrink-0 flex items-center justify-center gap-2 px-6 py-3 bg-brand-gold hover:bg-brand-goldLight text-brand-dark rounded-full font-semibold transition-all disabled:opacity-50 h-12 min-h-0 shadow-lg shadow-brand-gold/30"
+                className={`shrink-0 relative overflow-hidden flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-full font-semibold transition-all h-12 min-h-0 ${
+                  loading
+                    ? "btn-loading-premium cursor-wait text-brand-cream"
+                    : "bg-brand-gold hover:bg-brand-goldLight text-brand-dark shadow-lg shadow-brand-gold/30 hover:shadow-brand-gold/50 active:scale-[0.98]"
+                }`}
               >
                 {loading ? (
+                  // ⭐ ULTRA VISIBLE LOADING STATE
                   <>
-                    <Loader2 size={18} className="animate-spin" />
-                    <span className="hidden sm:inline">Sending</span>
+                    {/* Premium spinner */}
+                    <div className="tazmeel-spinner" style={{ width: 24, height: 24 }}>
+                      <span />
+                    </div>
+
+                    {/* Animated text */}
+                    <span className="loading-text text-sm">
+                      Sending
+                      <span className="loading-dot" />
+                      <span className="loading-dot" />
+                      <span className="loading-dot" />
+                    </span>
                   </>
                 ) : (
+                  // ⭐ NORMAL STATE
                   <>
                     <Send size={18} />
                     <span>Subscribe</span>
@@ -200,10 +216,20 @@ export default function Footer() {
               </button>
             </form>
           </div>
+
+          {/* Loading status below form */}
+          {loading && (
+            <div className="mt-3 flex justify-center lg:justify-end">
+              <div className="loading-status">
+                <span className="loading-status-icon" />
+                Please wait, subscribing...
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Main Footer */}
+      {/* ═══════ MAIN FOOTER ═══════ */}
       <div className="relative container-custom py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
           {/* Brand */}
@@ -240,7 +266,7 @@ export default function Footer() {
               CRAFTING STYLE WITH TAZMEEL
             </p>
 
-            {/* Social Icons */}
+            {/* Social */}
             <div className="flex flex-wrap gap-2">
               {socialLinks.map((s) => {
                 const Icon = s.Icon;
@@ -305,60 +331,14 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ⭐ Contact Info with 2 Buttons */}
+          {/* Contact */}
           <div className="lg:col-span-3">
             <h4 className="font-serif text-lg text-brand-gold mb-4 flex items-center gap-2">
               <span className="w-1 h-5 bg-brand-gold rounded" />
               Contact Info
             </h4>
-
-            {/* ⭐ Address + Location — 2 Buttons */}
-            <div className="grid grid-cols-2 gap-2 mb-4">
-              {/* ⭐ Address Button — Copy */}
-              <button
-                onClick={handleCopyAddress}
-                className="group flex flex-col items-center gap-1.5 p-3 bg-brand-gold/5 hover:bg-brand-gold/15 border border-brand-gold/20 hover:border-brand-gold rounded-lg transition-all text-center min-w-0"
-                title="Click to copy address"
-              >
-                <div className="w-8 h-8 rounded-full bg-brand-gold/15 flex items-center justify-center group-hover:bg-brand-gold/30 transition-colors">
-                  {copied ? (
-                    <Check size={14} className="text-green-400" />
-                  ) : (
-                    <MapPin size={14} className="text-brand-gold" />
-                  )}
-                </div>
-                <span className="text-[9px] font-bold text-brand-gold tracking-wider">
-                  ADDRESS
-                </span>
-                <span className="text-[9px] text-brand-cream/60 leading-tight">
-                  {copied ? "Copied!" : "Tap to copy"}
-                </span>
-              </button>
-
-              {/* ⭐ Location Button — Maps */}
-              <a
-                href={getMapLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col items-center gap-1.5 p-3 bg-brand-gold/5 hover:bg-brand-gold/15 border border-brand-gold/20 hover:border-brand-gold rounded-lg transition-all text-center min-w-0"
-                title="Open in Google Maps"
-              >
-                <div className="w-8 h-8 rounded-full bg-brand-gold/15 flex items-center justify-center group-hover:bg-brand-gold/30 transition-colors">
-                  <Navigation size={14} className="text-brand-gold" />
-                </div>
-                <span className="text-[9px] font-bold text-brand-gold tracking-wider">
-                  LOCATION
-                </span>
-                <span className="text-[9px] text-brand-cream/60 leading-tight inline-flex items-center gap-0.5">
-                  Live Map
-                  <ExternalLink size={8} />
-                </span>
-              </a>
-            </div>
-
-            {/* Other Contact Info */}
             <ul className="space-y-4 text-sm">
-              {otherContactInfo.map((c) => {
+              {contactInfo.map((c) => {
                 const Icon = c.icon;
                 const content = (
                   <div className="flex gap-3 items-start">
@@ -404,7 +384,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* ═══════ BOTTOM BAR ═══════ */}
       <div className="relative border-t border-brand-gold/20 bg-brand-dark/50">
         <div className="container-custom py-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
@@ -434,9 +414,7 @@ export default function Footer() {
               </a>
               <span className="text-brand-gold/30">•</span>
               <a
-                href={getWhatsAppLink(
-                  "Hello Tazmeel Apparels! I have a question."
-                )}
+                href={getWhatsAppLink("Hello Tazmeel Apparels! I have a question.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brand-cream/50 hover:text-brand-gold transition"

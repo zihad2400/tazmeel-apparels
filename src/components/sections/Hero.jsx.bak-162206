@@ -16,29 +16,12 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark"
     >
-      {/* ═══════ BACKGROUND IMAGE ═══════ */}
-      <div className="absolute inset-0">
-        <img
-          src="/images/brand/green-fabric.jpg"
-          alt="Premium fabric texture"
-          className="w-full h-full object-cover"
-          style={{ filter: "saturate(1.5) brightness(0.7) contrast(1.15)" }}
-        />
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark/90 via-brand-darker/85 to-brand-darker/95" />
-        {/* Radial gold glow */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(201,162,39,0.15) 0%, transparent 70%)",
-          }}
-        />
-      </div>
+      {/* ═══════ BACKGROUND ═══════ */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0F3D2E] via-[#0F3D2E] to-[#082A1F]" />
 
       {/* Dot pattern */}
       <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle, #C9A227 1px, transparent 1px)`,
           backgroundSize: "50px 50px",
@@ -79,7 +62,7 @@ export default function Hero() {
               <motion.div
                 animate={{ scale: [1, 1.05, 1], opacity: [0.6, 1, 0.6] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-[20%] rounded-full border-2 border-brand-gold/50"
+                className="absolute inset-[24%] rounded-full border-2 border-brand-gold/50"
               />
 
               {/* Center Circle */}
@@ -92,12 +75,12 @@ export default function Hero() {
                   ],
                 }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-[30%] rounded-full bg-brand-darker border-2 border-brand-gold flex items-center justify-center overflow-hidden"
+                className="absolute inset-[36%] rounded-full bg-brand-darker border-2 border-brand-gold flex items-center justify-center overflow-hidden"
               >
                 <motion.img
                   src="/images/brand/tazmeel-logo.png"
                   alt={SITE_CONFIG.businessName}
-                  className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-contain"
+                  className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 object-contain"
                   animate={{ scale: [1, 1.08, 1], rotate: [0, 3, -3, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   onError={(e) => {

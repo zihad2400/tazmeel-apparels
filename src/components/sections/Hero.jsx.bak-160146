@@ -16,29 +16,12 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark"
     >
-      {/* ═══════ BACKGROUND IMAGE ═══════ */}
-      <div className="absolute inset-0">
-        <img
-          src="/images/brand/green-fabric.jpg"
-          alt="Premium fabric texture"
-          className="w-full h-full object-cover"
-          style={{ filter: "saturate(1.5) brightness(0.7) contrast(1.15)" }}
-        />
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark/90 via-brand-darker/85 to-brand-darker/95" />
-        {/* Radial gold glow */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(201,162,39,0.15) 0%, transparent 70%)",
-          }}
-        />
-      </div>
+      {/* ═══════ BACKGROUND ═══════ */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0F3D2E] via-[#0F3D2E] to-[#082A1F]" />
 
       {/* Dot pattern */}
       <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle, #C9A227 1px, transparent 1px)`,
           backgroundSize: "50px 50px",
@@ -79,7 +62,7 @@ export default function Hero() {
               <motion.div
                 animate={{ scale: [1, 1.05, 1], opacity: [0.6, 1, 0.6] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-[20%] rounded-full border-2 border-brand-gold/50"
+                className="absolute inset-[24%] rounded-full border-2 border-brand-gold/50"
               />
 
               {/* Center Circle */}
@@ -92,12 +75,12 @@ export default function Hero() {
                   ],
                 }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-[30%] rounded-full bg-brand-darker border-2 border-brand-gold flex items-center justify-center overflow-hidden"
+                className="absolute inset-[36%] rounded-full bg-brand-darker border-2 border-brand-gold flex items-center justify-center overflow-hidden"
               >
                 <motion.img
                   src="/images/brand/tazmeel-logo.png"
                   alt={SITE_CONFIG.businessName}
-                  className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 object-contain"
+                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain"
                   animate={{ scale: [1, 1.08, 1], rotate: [0, 3, -3, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   onError={(e) => {
@@ -149,7 +132,7 @@ export default function Hero() {
               ISLAMIC & MODEST GARMENTS MANUFACTURER
             </motion.p>
 
-            {/* TAZMEEL APPARELS — Single Line */}
+            {/* ⭐ TAZMEEL APPARELS — Single Line, Smaller Font */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -175,36 +158,36 @@ export default function Hero() {
               <span>Since 2020</span>
             </motion.p>
 
-            {/* ⭐ Buttons — Solid Active Colors */}
+            {/* ⭐ Buttons — All Transparent */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
               className="flex flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start mb-10 lg:mb-12"
             >
-              {/* ⭐ Explore Products — GOLD SOLID */}
+              {/* Explore Products — Gold Transparent */}
               <Link
                 href="#products"
-                className="group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-lg font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 bg-brand-gold hover:bg-brand-goldLight text-brand-dark border-2 border-brand-gold shadow-lg shadow-brand-gold/30 hover:shadow-xl hover:shadow-brand-gold/50 hover:scale-105"
+                className="group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-lg font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 border-2 border-brand-gold bg-brand-gold/10 backdrop-blur-sm text-brand-gold hover:bg-brand-gold hover:text-brand-dark hover:shadow-xl hover:shadow-brand-gold/40"
               >
                 Explore Products
               </Link>
 
-              {/* ⭐ WhatsApp — GREEN SOLID (WhatsApp Brand Color) */}
+              {/* WhatsApp — Green Transparent */}
               <a
                 href={waLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-lg font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 bg-[#25D366] hover:bg-[#128C7E] text-white border-2 border-[#25D366] shadow-lg shadow-[#25D366]/30 hover:shadow-xl hover:shadow-[#25D366]/50 hover:scale-105"
+                className="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-lg font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 border-2 border-green-400 bg-green-400/10 backdrop-blur-sm text-green-300 hover:bg-green-500 hover:text-white hover:border-green-500 hover:shadow-xl hover:shadow-green-500/40"
               >
                 <MessageCircle size={18} />
                 WhatsApp
               </a>
 
-              {/* Get a Quote — Gold Transparent (Opposite) */}
+              {/* ⭐ Get a Quote — GOLD Transparent (like Explore) */}
               <Link
                 href="#contact"
-                className="group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-lg font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 border-2 border-brand-gold bg-brand-gold/10 backdrop-blur-sm text-brand-gold hover:bg-brand-gold hover:text-brand-dark hover:shadow-xl hover:shadow-brand-gold/40 hover:scale-105"
+                className="group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-lg font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 border-2 border-brand-gold bg-brand-gold/10 backdrop-blur-sm text-brand-gold hover:bg-brand-gold hover:text-brand-dark hover:shadow-xl hover:shadow-brand-gold/40"
               >
                 Get a Quote
               </Link>

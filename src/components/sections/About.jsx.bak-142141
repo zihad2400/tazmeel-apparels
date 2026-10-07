@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Target, Eye, Leaf, Sparkles, Factory, Users, Globe, Heart } from "lucide-react";
+import { Target, Eye, Leaf, Sparkles, Award, Users, Globe, Heart } from "lucide-react";
 
 const cards = [
   { icon: Target, num: "1", title: "Our Vision", text: "Lead the sector through innovation and high-quality apparel production standards." },
@@ -9,12 +9,12 @@ const cards = [
   { icon: Sparkles, num: "4", title: "Value Addition", text: "Clothing that offers cultural value and aesthetics, beyond wearability." },
 ];
 
-// ⭐ Manufacturing Labels
+// ⭐ SHORT labels for mobile — full version for desktop
 const highlights = [
-  { icon: Factory, label: "Direct Manufacturer" },
-  { icon: Users, label: "Expert Team" },
-  { icon: Globe, label: "Bulk Orders" },
-  { icon: Heart, label: "Custom Design" },
+  { icon: Award, labelShort: "ISO", labelFull: "ISO Certified" },
+  { icon: Users, labelShort: "Skilled", labelFull: "Skilled Craftsmanship" },
+  { icon: Globe, labelShort: "Global", labelFull: "Global Export Ready" },
+  { icon: Heart, labelShort: "Custom", labelFull: "Custom Made with Care" },
 ];
 
 export default function About() {
@@ -43,27 +43,26 @@ export default function About() {
               Established in <strong className="text-brand-green">2020</strong>, Tazmeel Apparels is a Dhaka-based manufacturer of trendy, high-quality Islamic and modest clothing. We blend traditional and modern styles, delivering dependable apparel to a diverse client base.
             </p>
 
-            {/* ⭐ COMPACT 2×2 GRID */}
-            <div className="grid grid-cols-2 gap-2 sm:gap-2.5 mb-6">
+            {/* ⭐ Highlight Chips — Fully Responsive */}
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-6">
               {highlights.map((h, i) => {
                 const Icon = h.icon;
                 return (
                   <motion.div
-                    key={h.label}
+                    key={h.labelFull}
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.08 }}
                     viewport={{ once: true }}
-                    className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-2 sm:py-2.5 bg-white border border-brand-gold/20 rounded-lg hover:border-brand-gold hover:shadow-md transition-all group min-w-0"
+                    className="flex items-center gap-2 p-2.5 bg-white border border-brand-gold/20 rounded-lg hover:border-brand-gold hover:shadow-md transition-all group min-w-0 overflow-hidden"
                   >
-                    {/* Small Icon */}
-                    <div className="shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
-                      <Icon className="text-brand-gold" size={12} />
+                    <div className="shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
+                      <Icon className="text-brand-gold" size={13} />
                     </div>
-
-                    {/* Compact Text */}
-                    <span className="text-[10px] sm:text-[11px] md:text-xs font-semibold text-brand-dark leading-tight">
-                      {h.label}
+                    <span className="text-[10px] sm:text-xs md:text-sm font-medium text-brand-dark leading-tight truncate">
+                      {/* Mobile: short, Desktop: full */}
+                      <span className="hidden sm:inline">{h.labelFull}</span>
+                      <span className="sm:hidden">{h.labelShort}</span>
                     </span>
                   </motion.div>
                 );

@@ -4,149 +4,148 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { getWhatsAppLink } from "@/lib/siteConfig";
 
+// ⭐ Product List — 7 items
 const products = [
   {
     num: "01",
-    name: "Kuwaiti Thobe",
-    desc: "Premium traditional thobe with elegant collar and refined stitching.",
+    name: "Panjabi",
+    desc: "Classic South Asian style, perfect for everyday and festive wear.",
   },
   {
     num: "02",
-    name: "Arabian Thobe",
-    desc: "Classic Arabian style designed for premium Middle Eastern markets.",
+    name: "Kabli Set",
+    desc: "Complete traditional two-piece ensemble.",
   },
   {
     num: "03",
-    name: "Regular Thobe",
-    desc: "Everyday comfort thobe with clean, minimal design.",
+    name: "Thobe",
+    desc: "Elegant and comfortable for Middle Eastern markets.",
   },
   {
     num: "04",
-    name: "Omani Thobe",
-    desc: "Traditional Omani style with distinctive fringe detailing.",
+    name: "Arabian Thobe",
+    desc: "Designed for premium Middle Eastern markets.",
   },
   {
     num: "05",
-    name: "Kundura Thobe",
-    desc: "Modern fit with traditional essence for contemporary markets.",
+    name: "Emirati Thobe",
+    desc: "Modern fit with traditional essence.",
   },
   {
     num: "06",
-    name: "Kabuli Set",
-    desc: "Complete traditional two-piece ensemble for formal occasions.",
+    name: "Jubba",
+    desc: "Comfort-focused long-form wear.",
   },
   {
     num: "07",
     name: "Punjabi",
-    desc: "Classic South Asian style, perfect for everyday and festive wear.",
+    desc: "Versatile style for various occasions.",
   },
 ];
 
+// ⭐ Carousel Images — 6টি Unique Image
 const carouselImages = [
   {
     src: "/images/products/kuwati-thobe.jpg",
-    alt: "Kuwaiti Thobe",
-    title: "Kuwaiti Thobe",
+    alt: "Kuwati Thobe — Premium Quality",
+    title: "Kuwati Thobe",
     subtitle: "Premium Traditional",
   },
   {
     src: "/images/products/arabian-thobe.webp",
-    alt: "Arabian Thobe",
+    alt: "Arabian Thobe — Classic Design",
     title: "Arabian Thobe",
     subtitle: "Classic Collection",
   },
   {
     src: "/images/products/regular-thobe.webp",
-    alt: "Regular Thobe",
+    alt: "Regular Thobe — Everyday Comfort",
     title: "Regular Thobe",
     subtitle: "Everyday Wear",
   },
   {
     src: "/images/products/omani-thobe.jpeg",
-    alt: "Omani Thobe",
+    alt: "Omani Thobe — Traditional Style",
     title: "Omani Thobe",
     subtitle: "Traditional Style",
   },
   {
-    src: "/images/products/kundura-thobe.jpg",
-    alt: "Kundura Thobe",
-    title: "Kundura Thobe",
-    subtitle: "Modern Collection",
-  },
-  {
     src: "/images/products/kabuli-set.png",
-    alt: "Kabuli Set",
+    alt: "Kabuli Set — Complete Ensemble",
     title: "Kabuli Set",
     subtitle: "Complete Ensemble",
   },
   {
     src: "/images/products/punjabi.jpg",
-    alt: "Punjabi",
+    alt: "Punjabi — Festive Wear",
     title: "Punjabi",
     subtitle: "Festive Wear",
   },
 ];
 
+const customTags = ["OEM", "ODM", "Private Label", "Custom Design"];
+
 export default function Products() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  // ⭐ Auto-slide প্রতি 2 seconds এ
   useEffect(() => {
     if (isPaused) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
     }, 2000);
+
     return () => clearInterval(interval);
   }, [isPaused]);
 
-  const goToPrev = () =>
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
+  const goToPrev = () => {
     setCurrentIndex(
       (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
     );
+  };
 
-  const goToNext = () =>
+  const goToNext = () => {
     setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
+  };
 
   return (
     <section id="products" className="section-padding bg-brand-cream">
       <div className="container-custom">
-        {/* ═══════ HEADER — CENTERED ═══════ */}
+
+        {/* ═══════ HEADER ═══════ */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-10 sm:mb-14 md:mb-16 text-center max-w-3xl mx-auto px-4"
+          className="mb-10 sm:mb-14 max-w-3xl"
         >
           <p className="text-brand-gold tracking-[0.3em] text-[10px] sm:text-xs font-semibold mb-3">
             OUR PRODUCT RANGE
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brand-dark leading-[1.1] mb-4 sm:mb-5">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brand-dark leading-[1.1] mb-4 sm:mb-6">
             What We Manufacture
           </h2>
-          <div className="w-16 sm:w-20 h-1 bg-brand-gold mx-auto mb-5 sm:mb-6"></div>
-          <p className="text-sm sm:text-base md:text-lg text-brand-dark/70 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-brand-dark/70 leading-relaxed mb-4 sm:mb-6">
             We produce a wide range of traditional and contemporary garments
             with a focus on quality, craftsmanship and customization.
+          </p>
+          <p className="text-sm sm:text-base text-brand-dark/60">
+            Timeless designs. Made for your brand.
           </p>
         </motion.div>
 
         {/* ═══════ MAIN GRID ═══════ */}
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
+
           {/* LEFT: Products List */}
           <div className="lg:col-span-7 xl:col-span-8">
-            {/* ⭐ Timeless Text — Above Products List, Left Aligned */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="text-brand-dark/70 text-sm sm:text-base md:text-lg italic mb-6 sm:mb-8"
-            >
-              Timeless designs. Made for your brand.
-            </motion.p>
-
-            {/* Products Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-0">
               {products.map((p, i) => (
                 <motion.div
@@ -181,7 +180,7 @@ export default function Products() {
             </div>
           </div>
 
-          {/* RIGHT: Carousel */}
+          {/* ═══════ RIGHT: 6-Image Carousel ═══════ */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -190,11 +189,15 @@ export default function Products() {
             className="lg:col-span-5 xl:col-span-4"
           >
             <div className="sticky top-24">
+              
+              {/* ─── Carousel Container ─── */}
               <div
                 className="relative aspect-[3/4] rounded-xl overflow-hidden bg-brand-sand shadow-2xl group"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
               >
+                
+                {/* ⭐ Images — Fade Transition */}
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={currentIndex}
@@ -208,8 +211,10 @@ export default function Products() {
                   />
                 </AnimatePresence>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-darker/90 via-brand-darker/10 to-transparent pointer-events-none" />
+                {/* ⭐ Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-darker/90 via-brand-darker/20 to-transparent pointer-events-none" />
 
+                {/* ⭐ Progress Bar (Top) */}
                 {!isPaused && (
                   <motion.div
                     key={currentIndex}
@@ -220,6 +225,7 @@ export default function Products() {
                   />
                 )}
 
+                {/* ⭐ Title Badge */}
                 <div className="absolute top-4 left-4 z-20">
                   <motion.div
                     key={currentIndex}
@@ -234,16 +240,17 @@ export default function Products() {
                   </motion.div>
                 </div>
 
+                {/* ⭐ Counter Badge */}
                 <div className="absolute top-4 right-4 z-20">
                   <div className="px-2.5 py-1 bg-brand-darker/70 backdrop-blur-sm rounded-full border border-brand-cream/20">
                     <span className="text-[10px] sm:text-xs font-semibold text-brand-cream tracking-wider">
-                      {String(currentIndex + 1).padStart(2, "0")} /{" "}
-                      {String(carouselImages.length).padStart(2, "0")}
+                      {String(currentIndex + 1).padStart(2, "0")} / {String(carouselImages.length).padStart(2, "0")}
                     </span>
                   </div>
                 </div>
 
-                <div className="absolute bottom-5 left-4 right-4 z-20">
+                {/* ⭐ Bottom Info */}
+                <div className="absolute bottom-4 left-4 right-4 z-20">
                   <motion.div
                     key={currentIndex}
                     initial={{ opacity: 0, y: 10 }}
@@ -253,32 +260,95 @@ export default function Products() {
                     <p className="text-[10px] text-brand-gold tracking-[0.25em] font-semibold mb-1">
                       {carouselImages[currentIndex].subtitle.toUpperCase()}
                     </p>
-                    <h4 className="font-serif text-xl sm:text-2xl text-brand-cream">
+                    <h4 className="font-serif text-xl sm:text-2xl text-brand-cream mb-3">
                       {carouselImages[currentIndex].title}
                     </h4>
                   </motion.div>
+
+                  {/* ⭐ Dot Indicators */}
+                  <div className="flex items-center gap-1.5">
+                    {carouselImages.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => goToSlide(i)}
+                        aria-label={`Go to slide ${i + 1}`}
+                        className={`transition-all duration-300 rounded-full ${
+                          i === currentIndex
+                            ? "w-8 h-1.5 bg-brand-gold"
+                            : "w-1.5 h-1.5 bg-brand-cream/50 hover:bg-brand-cream/90"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
 
+                {/* ⭐ Navigation Arrows */}
                 <button
                   onClick={goToPrev}
-                  aria-label="Previous"
-                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-brand-darker/60 hover:bg-brand-gold backdrop-blur-sm flex items-center justify-center text-brand-cream hover:text-brand-dark transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                  aria-label="Previous image"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-brand-darker/60 hover:bg-brand-gold backdrop-blur-sm flex items-center justify-center text-brand-cream hover:text-brand-dark transition-all duration-300 opacity-0 group-hover:opacity-100 md:opacity-0 opacity-100"
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={goToNext}
-                  aria-label="Next"
+                  aria-label="Next image"
                   className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-brand-darker/60 hover:bg-brand-gold backdrop-blur-sm flex items-center justify-center text-brand-cream hover:text-brand-dark transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100"
                 >
                   <ChevronRight size={20} />
                 </button>
+
+                {/* ⭐ Pause Indicator */}
+                {isPaused && (
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="w-14 h-14 rounded-full bg-brand-darker/60 backdrop-blur-sm flex items-center justify-center border-2 border-brand-gold/50"
+                    >
+                      <div className="flex gap-1">
+                        <div className="w-1.5 h-5 bg-brand-gold rounded-sm" />
+                        <div className="w-1.5 h-5 bg-brand-gold rounded-sm" />
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
               </div>
+
+              {/* ⭐ Thumbnails Row */}
+              <div className="mt-4 grid grid-cols-6 gap-2">
+                {carouselImages.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => goToSlide(i)}
+                    aria-label={`View ${img.title}`}
+                    className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                      i === currentIndex
+                        ? "border-brand-gold scale-105 shadow-lg shadow-brand-gold/30"
+                        : "border-brand-dark/10 hover:border-brand-gold/50 opacity-60 hover:opacity-100"
+                    }`}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.title}
+                      className="w-full h-full object-cover"
+                    />
+                    {i === currentIndex && (
+                      <div className="absolute inset-0 ring-2 ring-brand-gold rounded-lg" />
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {/* ⭐ Caption Below Thumbnails */}
+              <p className="mt-3 text-center text-[10px] sm:text-xs text-brand-dark/50 tracking-wider">
+                Click thumbnail to view • Auto-slides every 2 seconds
+              </p>
             </div>
           </motion.div>
         </div>
 
-        {/* CUSTOM REQUIREMENTS CTA */}
+        {/* ═══════ CUSTOM REQUIREMENTS CTA ═══════ */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -291,9 +361,21 @@ export default function Products() {
               <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-brand-cream mb-3 sm:mb-4">
                 Custom Requirements?
               </h3>
-              <p className="text-sm sm:text-base md:text-lg text-brand-cream/80 leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-brand-cream/80 mb-4 sm:mb-5 leading-relaxed">
                 Share your design, specification or tech pack with us.
               </p>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                {customTags.map((tag, i) => (
+                  <span key={tag} className="flex items-center gap-2 sm:gap-3">
+                    <span className="text-xs sm:text-sm text-brand-gold font-medium tracking-wide">
+                      {tag}
+                    </span>
+                    {i < customTags.length - 1 && (
+                      <span className="text-brand-gold/30 text-xs">|</span>
+                    )}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <a

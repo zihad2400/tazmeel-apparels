@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Target, Eye, Leaf, Sparkles, Factory, Users, Globe, Heart } from "lucide-react";
+import { Target, Eye, Leaf, Sparkles, Award, Users, Globe, Heart } from "lucide-react";
 
 const cards = [
   { icon: Target, num: "1", title: "Our Vision", text: "Lead the sector through innovation and high-quality apparel production standards." },
@@ -9,19 +9,17 @@ const cards = [
   { icon: Sparkles, num: "4", title: "Value Addition", text: "Clothing that offers cultural value and aesthetics, beyond wearability." },
 ];
 
-// ⭐ Manufacturing Labels
 const highlights = [
-  { icon: Factory, label: "Direct Manufacturer" },
-  { icon: Users, label: "Expert Team" },
-  { icon: Globe, label: "Bulk Orders" },
-  { icon: Heart, label: "Custom Design" },
+  { icon: Award, label: "ISO Certified Quality" },
+  { icon: Users, label: "Skilled Craftsmanship" },
+  { icon: Globe, label: "Global Export Ready" },
+  { icon: Heart, label: "Custom Made with Care" },
 ];
 
 export default function About() {
   return (
     <section id="about" className="section-padding bg-brand-cream">
       <div className="container-custom">
-        {/* Header */}
         <div className="text-center mb-10 sm:mb-14 md:mb-16 px-4">
           <p className="text-brand-gold tracking-[0.3em] text-[10px] sm:text-xs mb-2 sm:mb-3">
             WHO WE ARE
@@ -43,8 +41,7 @@ export default function About() {
               Established in <strong className="text-brand-green">2020</strong>, Tazmeel Apparels is a Dhaka-based manufacturer of trendy, high-quality Islamic and modest clothing. We blend traditional and modern styles, delivering dependable apparel to a diverse client base.
             </p>
 
-            {/* ⭐ COMPACT 2×2 GRID */}
-            <div className="grid grid-cols-2 gap-2 sm:gap-2.5 mb-6">
+            <div className="grid grid-cols-2 gap-3 mb-6">
               {highlights.map((h, i) => {
                 const Icon = h.icon;
                 return (
@@ -54,15 +51,12 @@ export default function About() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.08 }}
                     viewport={{ once: true }}
-                    className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-2 sm:py-2.5 bg-white border border-brand-gold/20 rounded-lg hover:border-brand-gold hover:shadow-md transition-all group min-w-0"
+                    className="flex items-center gap-2.5 p-3 bg-white border border-brand-gold/20 rounded-lg hover:border-brand-gold hover:shadow-md transition-all group"
                   >
-                    {/* Small Icon */}
-                    <div className="shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
-                      <Icon className="text-brand-gold" size={12} />
+                    <div className="shrink-0 w-8 h-8 rounded-full bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
+                      <Icon className="text-brand-gold" size={16} />
                     </div>
-
-                    {/* Compact Text */}
-                    <span className="text-[10px] sm:text-[11px] md:text-xs font-semibold text-brand-dark leading-tight">
+                    <span className="text-xs sm:text-sm font-medium text-brand-dark">
                       {h.label}
                     </span>
                   </motion.div>
@@ -70,31 +64,29 @@ export default function About() {
               })}
             </div>
 
-            {/* Signature Quote */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
-              className="relative pl-4 sm:pl-5 border-l-4 border-brand-gold bg-brand-gold/5 p-3.5 sm:p-5 rounded-r-lg"
+              className="relative pl-5 border-l-4 border-brand-gold bg-brand-gold/5 p-4 sm:p-5 rounded-r-lg"
             >
-              <span className="absolute -top-3 left-3 text-3xl sm:text-4xl text-brand-gold/40 font-serif">"</span>
-              <p className="text-xs sm:text-base text-brand-dark/80 italic mb-3 leading-relaxed">
+              <span className="absolute -top-3 left-3 text-4xl text-brand-gold/40 font-serif">"</span>
+              <p className="text-sm sm:text-base text-brand-dark/80 italic mb-3 leading-relaxed">
                 We don't just manufacture garments — we craft the confidence our clients wear.
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-dark flex items-center justify-center shrink-0">
-                  <span className="text-brand-gold font-serif text-xs sm:text-sm font-bold">T</span>
+                <div className="w-8 h-8 rounded-full bg-brand-dark flex items-center justify-center">
+                  <span className="text-brand-gold font-serif text-sm font-bold">T</span>
                 </div>
                 <div>
-                  <p className="text-[11px] sm:text-xs font-semibold text-brand-dark">Tazmeel Apparels</p>
-                  <p className="text-[9px] sm:text-[10px] text-brand-dark/50 tracking-wider">FOUNDER</p>
+                  <p className="text-xs font-semibold text-brand-dark">Tazmeel Apparels</p>
+                  <p className="text-[10px] text-brand-dark/50 tracking-wider">FOUNDER</p>
                 </div>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Images */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -119,7 +111,6 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Core Value Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {cards.map((c, i) => (
             <motion.div

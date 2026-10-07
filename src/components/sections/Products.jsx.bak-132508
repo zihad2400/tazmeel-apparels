@@ -1,0 +1,191 @@
+"use client";
+import { motion } from "framer-motion";
+import { ArrowRight, Ruler } from "lucide-react";
+import { getWhatsAppLink } from "@/lib/siteConfig";
+
+// ⭐ Product Data — Same-to-same design
+const products = [
+  {
+    num: "01",
+    name: "Panjabi",
+    desc: "Classic South Asian style, perfect for everyday and festive wear.",
+  },
+  {
+    num: "02",
+    name: "Kabli Set",
+    desc: "Complete traditional two-piece ensemble.",
+  },
+  {
+    num: "03",
+    name: "Thobe",
+    desc: "Elegant and comfortable for Middle Eastern markets.",
+  },
+  {
+    num: "04",
+    name: "Arabian Thobe",
+    desc: "Designed for premium Middle Eastern markets.",
+  },
+  {
+    num: "05",
+    name: "Emirati Thobe",
+    desc: "Modern fit with traditional essence.",
+  },
+  {
+    num: "06",
+    name: "Jubba",
+    desc: "Comfort-focused long-form wear.",
+  },
+  {
+    num: "07",
+    name: "Punjabi",
+    desc: "Versatile style for various occasions.",
+  },
+];
+
+const customTags = ["OEM", "ODM", "Private Label", "Custom Design"];
+
+export default function Products() {
+  return (
+    <section id="products" className="section-padding bg-brand-cream">
+      <div className="container-custom">
+
+        {/* ═══════ HEADER ═══════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-10 sm:mb-14 max-w-3xl"
+        >
+          <p className="text-brand-gold tracking-[0.3em] text-[10px] sm:text-xs font-semibold mb-3">
+            OUR PRODUCT RANGE
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brand-dark leading-[1.1] mb-4 sm:mb-6">
+            What We Manufacture
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg text-brand-dark/70 leading-relaxed mb-4 sm:mb-6">
+            We produce a wide range of traditional and contemporary garments
+            with a focus on quality, craftsmanship and customization.
+          </p>
+          <p className="text-sm sm:text-base text-brand-dark/60">
+            Timeless designs. Made for your brand.
+          </p>
+        </motion.div>
+
+        {/* ═══════ MAIN GRID ═══════ */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
+
+          {/* ─── LEFT: Products List (8 cols) ─── */}
+          <div className="lg:col-span-7 xl:col-span-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-0">
+              {products.map((p, i) => (
+                <motion.div
+                  key={p.num}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  viewport={{ once: true }}
+                  className="group border-b border-brand-dark/10 py-5 sm:py-6"
+                >
+                  <div className="flex items-start gap-4 sm:gap-6">
+                    {/* Number */}
+                    <span className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-gold/60 leading-none shrink-0 w-12 sm:w-16 group-hover:text-brand-gold transition-colors">
+                      {p.num}
+                    </span>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+                        <h3 className="font-serif text-lg sm:text-xl md:text-2xl text-brand-dark group-hover:text-brand-green transition-colors">
+                          {p.name}
+                        </h3>
+                        <ArrowRight
+                          size={18}
+                          className="text-brand-dark/40 group-hover:text-brand-gold group-hover:translate-x-1 transition-all"
+                        />
+                      </div>
+                      <p className="text-xs sm:text-sm text-brand-dark/60 leading-relaxed">
+                        {p.desc}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* ─── RIGHT: Image (4 cols) ─── */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="lg:col-span-5 xl:col-span-4"
+          >
+            <div className="sticky top-24">
+              <div className="aspect-[3/4] rounded-lg overflow-hidden bg-brand-sand shadow-xl">
+                <img
+                  src="/images/products/kuwati-thobe.jpg"
+                  alt="Premium Thobe — Tazmeel Apparels"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ═══════ CUSTOM MANUFACTURING CTA ═══════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mt-12 sm:mt-16 bg-gradient-to-br from-brand-dark to-brand-green rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10"
+        >
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
+
+            {/* Icon */}
+            <div className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 bg-brand-gold/10 border border-brand-gold/30 rounded-xl flex items-center justify-center">
+              <Ruler className="text-brand-gold" size={28} />
+            </div>
+
+            {/* Content */}
+            <div className="flex-1">
+              <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-brand-cream mb-3 sm:mb-4">
+                Custom Manufacturing
+              </h3>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                {customTags.map((tag, i) => (
+                  <span key={tag} className="flex items-center gap-2 sm:gap-3">
+                    <span className="text-xs sm:text-sm text-brand-gold font-medium tracking-wide">
+                      {tag}
+                    </span>
+                    {i < customTags.length - 1 && (
+                      <span className="text-brand-gold/30 text-xs">|</span>
+                    )}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <a
+              href={getWhatsAppLink(
+                "Hello Tazmeel Apparels! I want to discuss custom manufacturing requirements."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group shrink-0 inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-brand-gold hover:bg-brand-goldLight text-brand-dark rounded-full font-semibold text-sm transition-all shadow-lg shadow-brand-gold/30 hover:shadow-brand-gold/50 whitespace-nowrap"
+            >
+              Discuss Your Requirement
+              <ArrowRight
+                size={16}
+                className="group-hover:translate-x-1 transition-transform"
+              />
+            </a>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

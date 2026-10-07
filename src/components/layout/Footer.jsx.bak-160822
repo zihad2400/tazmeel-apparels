@@ -17,9 +17,6 @@ import {
   Package,
   Shield,
   Navigation,
-  Copy,
-  Check,
-  ExternalLink,
 } from "lucide-react";
 import {
   FaFacebookF,
@@ -75,7 +72,21 @@ const socialLinks = [
   },
 ];
 
-const otherContactInfo = [
+// ⭐ Contact Info — Address + Location (separate)
+const contactInfo = [
+  {
+    icon: MapPin,
+    label: "Address",
+    value: SITE_CONFIG.address,
+    href: getMapLink(),
+  },
+  {
+    icon: Navigation,
+    label: "Location",
+    value: "Get Directions to our office",
+    href: getMapLink(),
+    isDirections: true,
+  },
   {
     icon: Phone,
     label: "Phone",
@@ -99,19 +110,6 @@ const otherContactInfo = [
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  // ⭐ Copy Address to Clipboard
-  const handleCopyAddress = async () => {
-    try {
-      await navigator.clipboard.writeText(SITE_CONFIG.address);
-      setCopied(true);
-      showSuccess("Address Copied!", "Full address copied to clipboard.");
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      showError("Copy Failed", "Please copy manually.");
-    }
-  };
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -305,61 +303,49 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ⭐ Contact Info with 2 Buttons */}
+          {/* ⭐ Contact Info — Address + Location + Phone + Email + Hours */}
           <div className="lg:col-span-3">
             <h4 className="font-serif text-lg text-brand-gold mb-4 flex items-center gap-2">
               <span className="w-1 h-5 bg-brand-gold rounded" />
               Contact Info
             </h4>
-
-            {/* ⭐ Address + Location — 2 Buttons */}
-            <div className="grid grid-cols-2 gap-2 mb-4">
-              {/* ⭐ Address Button — Copy */}
-              <button
-                onClick={handleCopyAddress}
-                className="group flex flex-col items-center gap-1.5 p-3 bg-brand-gold/5 hover:bg-brand-gold/15 border border-brand-gold/20 hover:border-brand-gold rounded-lg transition-all text-center min-w-0"
-                title="Click to copy address"
-              >
-                <div className="w-8 h-8 rounded-full bg-brand-gold/15 flex items-center justify-center group-hover:bg-brand-gold/30 transition-colors">
-                  {copied ? (
-                    <Check size={14} className="text-green-400" />
-                  ) : (
-                    <MapPin size={14} className="text-brand-gold" />
-                  )}
-                </div>
-                <span className="text-[9px] font-bold text-brand-gold tracking-wider">
-                  ADDRESS
-                </span>
-                <span className="text-[9px] text-brand-cream/60 leading-tight">
-                  {copied ? "Copied!" : "Tap to copy"}
-                </span>
-              </button>
-
-              {/* ⭐ Location Button — Maps */}
-              <a
-                href={getMapLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col items-center gap-1.5 p-3 bg-brand-gold/5 hover:bg-brand-gold/15 border border-brand-gold/20 hover:border-brand-gold rounded-lg transition-all text-center min-w-0"
-                title="Open in Google Maps"
-              >
-                <div className="w-8 h-8 rounded-full bg-brand-gold/15 flex items-center justify-center group-hover:bg-brand-gold/30 transition-colors">
-                  <Navigation size={14} className="text-brand-gold" />
-                </div>
-                <span className="text-[9px] font-bold text-brand-gold tracking-wider">
-                  LOCATION
-                </span>
-                <span className="text-[9px] text-brand-cream/60 leading-tight inline-flex items-center gap-0.5">
-                  Live Map
-                  <ExternalLink size={8} />
-                </span>
-              </a>
-            </div>
-
-            {/* Other Contact Info */}
             <ul className="space-y-4 text-sm">
-              {otherContactInfo.map((c) => {
+              {contactInfo.map((c) => {
                 const Icon = c.icon;
+
+                // ⭐ Location এর জন্য special design
+                if (c.isDirections) {
+                  return (
+                    <li key={c.label}>
+                      <a
+                        href={c.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block group"
+                      >
+                        <div className="flex gap-3 items-start">
+                          <div className="w-9 h-9 rounded-lg bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center shrink-0 group-hover:bg-brand-gold/20 group-hover:scale-110 transition-all">
+                            <Icon size={16} className="text-brand-gold" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-[10px] text-brand-gold/70 tracking-widest mb-0.5">
+                              {c.label.toUpperCase()}
+                            </p>
+                            <p className="text-xs sm:text-sm text-brand-gold group-hover:text-brand-goldLight font-semibold transition break-words inline-flex items-center gap-1">
+                              Get Directions
+                              <ArrowRight
+                                size={12}
+                                className="group-hover:translate-x-1 transition-transform"
+                              />
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  );
+                }
+
+                // বাকি সব (Address, Phone, Email, Hours)
                 const content = (
                   <div className="flex gap-3 items-start">
                     <div className="w-9 h-9 rounded-lg bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center shrink-0 group-hover:bg-brand-gold/20 group-hover:scale-110 transition-all">

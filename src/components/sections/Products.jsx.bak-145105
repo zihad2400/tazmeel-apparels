@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { getWhatsAppLink } from "@/lib/siteConfig";
 
+// ⭐ PRODUCT LIST
 const products = [
   {
     num: "01",
@@ -42,6 +43,7 @@ const products = [
   },
 ];
 
+// ⭐ CAROUSEL IMAGES
 const carouselImages = [
   {
     src: "/images/products/kuwati-thobe.jpg",
@@ -91,6 +93,7 @@ export default function Products() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Auto-slide
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
@@ -110,43 +113,33 @@ export default function Products() {
   return (
     <section id="products" className="section-padding bg-brand-cream">
       <div className="container-custom">
-        {/* ═══════ HEADER — CENTERED ═══════ */}
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-10 sm:mb-14 md:mb-16 text-center max-w-3xl mx-auto px-4"
+          className="mb-10 sm:mb-14 max-w-3xl"
         >
           <p className="text-brand-gold tracking-[0.3em] text-[10px] sm:text-xs font-semibold mb-3">
             OUR PRODUCT RANGE
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brand-dark leading-[1.1] mb-4 sm:mb-5">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brand-dark leading-[1.1] mb-4 sm:mb-6">
             What We Manufacture
           </h2>
-          <div className="w-16 sm:w-20 h-1 bg-brand-gold mx-auto mb-5 sm:mb-6"></div>
-          <p className="text-sm sm:text-base md:text-lg text-brand-dark/70 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-brand-dark/70 leading-relaxed mb-4 sm:mb-6">
             We produce a wide range of traditional and contemporary garments
             with a focus on quality, craftsmanship and customization.
           </p>
+          <p className="text-sm sm:text-base text-brand-dark/60">
+            Timeless designs. Made for your brand.
+          </p>
         </motion.div>
 
-        {/* ═══════ MAIN GRID ═══════ */}
+        {/* MAIN GRID */}
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
           {/* LEFT: Products List */}
           <div className="lg:col-span-7 xl:col-span-8">
-            {/* ⭐ Timeless Text — Above Products List, Left Aligned */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="text-brand-dark/70 text-sm sm:text-base md:text-lg italic mb-6 sm:mb-8"
-            >
-              Timeless designs. Made for your brand.
-            </motion.p>
-
-            {/* Products Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-0">
               {products.map((p, i) => (
                 <motion.div
@@ -208,8 +201,10 @@ export default function Products() {
                   />
                 </AnimatePresence>
 
+                {/* Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-darker/90 via-brand-darker/10 to-transparent pointer-events-none" />
 
+                {/* Progress Bar */}
                 {!isPaused && (
                   <motion.div
                     key={currentIndex}
@@ -220,6 +215,7 @@ export default function Products() {
                   />
                 )}
 
+                {/* Title Badge */}
                 <div className="absolute top-4 left-4 z-20">
                   <motion.div
                     key={currentIndex}
@@ -234,6 +230,7 @@ export default function Products() {
                   </motion.div>
                 </div>
 
+                {/* Counter */}
                 <div className="absolute top-4 right-4 z-20">
                   <div className="px-2.5 py-1 bg-brand-darker/70 backdrop-blur-sm rounded-full border border-brand-cream/20">
                     <span className="text-[10px] sm:text-xs font-semibold text-brand-cream tracking-wider">
@@ -243,6 +240,7 @@ export default function Products() {
                   </div>
                 </div>
 
+                {/* Bottom Title */}
                 <div className="absolute bottom-5 left-4 right-4 z-20">
                   <motion.div
                     key={currentIndex}
@@ -259,6 +257,7 @@ export default function Products() {
                   </motion.div>
                 </div>
 
+                {/* Arrows */}
                 <button
                   onClick={goToPrev}
                   aria-label="Previous"
@@ -278,7 +277,7 @@ export default function Products() {
           </motion.div>
         </div>
 
-        {/* CUSTOM REQUIREMENTS CTA */}
+        {/* ⭐ CUSTOM REQUIREMENTS CTA — Tags Removed */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -287,6 +286,7 @@ export default function Products() {
           className="mt-12 sm:mt-16 bg-gradient-to-br from-brand-dark to-brand-green rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10"
         >
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
+            {/* Content */}
             <div className="flex-1">
               <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-brand-cream mb-3 sm:mb-4">
                 Custom Requirements?
@@ -296,6 +296,7 @@ export default function Products() {
               </p>
             </div>
 
+            {/* CTA Button */}
             <a
               href={getWhatsAppLink(
                 "Hello Tazmeel Apparels! I have custom requirements. Let's discuss."

@@ -9,12 +9,12 @@ const cards = [
   { icon: Sparkles, num: "4", title: "Value Addition", text: "Clothing that offers cultural value and aesthetics, beyond wearability." },
 ];
 
-// ⭐ Manufacturing Labels
+// ⭐ Manufacturing-Focused Labels
 const highlights = [
-  { icon: Factory, label: "Direct Manufacturer" },
-  { icon: Users, label: "Expert Team" },
-  { icon: Globe, label: "Bulk Orders" },
-  { icon: Heart, label: "Custom Design" },
+  { icon: Factory, labelShort: "Direct", labelFull: "Direct Manufacturer" },
+  { icon: Users, labelShort: "Expert", labelFull: "Expert Team" },
+  { icon: Globe, labelShort: "Bulk", labelFull: "Bulk Orders" },
+  { icon: Heart, labelShort: "Custom", labelFull: "Custom Design" },
 ];
 
 export default function About() {
@@ -43,27 +43,27 @@ export default function About() {
               Established in <strong className="text-brand-green">2020</strong>, Tazmeel Apparels is a Dhaka-based manufacturer of trendy, high-quality Islamic and modest clothing. We blend traditional and modern styles, delivering dependable apparel to a diverse client base.
             </p>
 
-            {/* ⭐ COMPACT 2×2 GRID */}
-            <div className="grid grid-cols-2 gap-2 sm:gap-2.5 mb-6">
+            {/* ⭐ Highlight Chips — Ultra Responsive with Full Text */}
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 sm:gap-3 mb-6">
               {highlights.map((h, i) => {
                 const Icon = h.icon;
                 return (
                   <motion.div
-                    key={h.label}
+                    key={h.labelFull}
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.08 }}
                     viewport={{ once: true }}
-                    className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-2 sm:py-2.5 bg-white border border-brand-gold/20 rounded-lg hover:border-brand-gold hover:shadow-md transition-all group min-w-0"
+                    className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-white border border-brand-gold/20 rounded-lg hover:border-brand-gold hover:shadow-md transition-all group min-w-0"
                   >
-                    {/* Small Icon */}
-                    <div className="shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
-                      <Icon className="text-brand-gold" size={12} />
+                    {/* Icon */}
+                    <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
+                      <Icon className="text-brand-gold" size={14} />
                     </div>
 
-                    {/* Compact Text */}
-                    <span className="text-[10px] sm:text-[11px] md:text-xs font-semibold text-brand-dark leading-tight">
-                      {h.label}
+                    {/* Label — Full on all devices */}
+                    <span className="text-[11px] xs:text-xs sm:text-sm font-medium text-brand-dark leading-tight">
+                      {h.labelFull}
                     </span>
                   </motion.div>
                 );
