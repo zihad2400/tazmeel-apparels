@@ -1,11 +1,13 @@
-// ⭐ Central Business Config — সবাই এখান থেকে number/email পাবে
+// ═══════════════════════════════════════════
+// 🔐 Tazmeel Apparels — Central Business Config
+// ═══════════════════════════════════════════
 
 export const SITE_CONFIG = {
-  // Business Info
+  // ─── Business Info ───
   businessName: "Tazmeel Apparels",
   businessTagline: "Crafting Style With Tazmeel",
 
-  // Phone Numbers (with country code for tel: links)
+  // ─── Phone Numbers ───
   phonePrimary: {
     display: "01911548979",
     tel: "+8801911548979",
@@ -17,17 +19,20 @@ export const SITE_CONFIG = {
     whatsapp: "8801747066230",
   },
 
-  // Email
+  // ─── Email ───
   email: "tazmeelapparels@gmail.com",
 
-  // Address
+  // ─── Address ───
   address: "63/3/1 West Agargaon, Sher-e-Bangla Nagar, Dhaka",
   addressShort: "West Agargaon, Dhaka",
 
-  // Hours
+  // ⭐ Google Maps — Exact Business Location
+  googleMapsUrl: "https://maps.app.goo.gl/WNcQMrYDxcpCxdvz9",
+
+  // ─── Hours ───
   hours: "9AM - 9PM (Sat - Fri)",
 
-  // Social
+  // ─── Social ───
   social: {
     facebook: "https://facebook.com/tazmeelapparels",
     instagram: "https://instagram.com/tazmeelapparels",
@@ -35,7 +40,10 @@ export const SITE_CONFIG = {
   },
 };
 
+// ═══════════════════════════════════════════
 // Helper Functions
+// ═══════════════════════════════════════════
+
 export const getWhatsAppLink = (message = "") => {
   const base = `https://wa.me/${SITE_CONFIG.phonePrimary.whatsapp}`;
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
@@ -49,10 +57,11 @@ export const getWhatsAppLinkSecondary = (message = "") => {
 export const getTelLink = () => `tel:${SITE_CONFIG.phonePrimary.tel}`;
 export const getTelLinkSecondary = () => `tel:${SITE_CONFIG.phoneSecondary.tel}`;
 export const getMailLink = () => `mailto:${SITE_CONFIG.email}`;
-export const getMapLink = () =>
-  `https://maps.google.com/?q=${encodeURIComponent(SITE_CONFIG.address)}`;
 
-// Formatted display
+// ⭐ Google Maps Link
+export const getMapLink = () => SITE_CONFIG.googleMapsUrl;
+
+// ─── Formatted display ───
 export const getPhoneDisplay = () => SITE_CONFIG.phonePrimary.display;
 export const getWhatsAppMessage = (customMessage = "") => {
   const defaultMsg = `Hello Tazmeel Apparels! I'm interested in your products. Please share more details.`;

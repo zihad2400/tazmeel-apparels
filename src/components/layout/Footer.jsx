@@ -1,448 +1,351 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 import {
   MapPin,
   Phone,
   Mail,
-  Clock,
-  Send,
-  Loader2,
-  MessageCircle,
   ArrowUp,
-  ArrowRight,
   Heart,
-  Award,
-  Truck,
+  Clock,
+  Building2,
   Package,
+  Truck,
+  Award,
   Shield,
-  Navigation,
-  Copy,
-  Check,
+  Users,
+  FileText,
+  Home,
+  Briefcase,
   ExternalLink,
+  Sparkles,
 } from "lucide-react";
 import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaWhatsapp,
-} from "react-icons/fa";
-import { showSuccess, showError } from "@/lib/showToast";
-import { SITE_CONFIG, getWhatsAppLink, getMapLink } from "@/lib/siteConfig";
+  SITE_CONFIG,
+  getMapLink,
+  getTelLink,
+  getMailLink,
+} from "@/lib/siteConfig";
 
+// ⭐ Quick Links
 const quickLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About Us" },
-  { href: "#why", label: "Why Choose Us" },
-  { href: "#products", label: "Products" },
-  { href: "#capacity", label: "Capacity" },
-  { href: "#process", label: "Production Process" },
-  { href: "#partners", label: "Our Partners" },
-  { href: "#contact", label: "Contact" },
+  { href: "#home", label: "Home", icon: Home },
+  { href: "#about", label: "About Us", icon: Building2 },
+  { href: "#why", label: "Why Choose Us", icon: Award },
+  { href: "#products", label: "Products", icon: Package },
+  { href: "#capacity", label: "Capacity", icon: Briefcase },
+  { href: "#process", label: "Our Process", icon: FileText },
+  { href: "#partners", label: "Partners", icon: Users },
+  { href: "#contact", label: "Contact", icon: Mail },
 ];
 
+// ⭐ Services
 const services = [
-  { icon: Package, label: "Custom Manufacturing" },
-  { icon: Truck, label: "Bulk Order Delivery" },
-  { icon: Award, label: "Quality Assurance" },
-  { icon: Shield, label: "Private Label" },
-];
-
-const socialLinks = [
   {
-    href: "https://facebook.com/tazmeelapparels",
-    Icon: FaFacebookF,
-    label: "Facebook",
-    color: "hover:bg-blue-600",
+    icon: Package,
+    label: "Custom Manufacturing",
+    desc: "Tailored to your brand",
   },
   {
-    href: "https://instagram.com/tazmeelapparels",
-    Icon: FaInstagram,
-    label: "Instagram",
-    color: "hover:bg-pink-600",
+    icon: Truck,
+    label: "Bulk Order Delivery",
+    desc: "On-time worldwide",
   },
   {
-    href: "https://wa.me/8801911548979",
-    Icon: FaWhatsapp,
-    label: "WhatsApp",
-    color: "hover:bg-green-600",
+    icon: Award,
+    label: "Quality Assurance",
+    desc: "Inspected at every stage",
   },
   {
-    href: "https://linkedin.com/company/tazmeelapparels",
-    Icon: FaLinkedinIn,
-    label: "LinkedIn",
-    color: "hover:bg-blue-700",
+    icon: Shield,
+    label: "Private Label",
+    desc: "Your brand, our craft",
   },
 ];
 
-const otherContactInfo = [
-  {
-    icon: Phone,
-    label: "Phone",
-    value: `${SITE_CONFIG.phonePrimary.display}, ${SITE_CONFIG.phoneSecondary.display}`,
-    href: `tel:${SITE_CONFIG.phonePrimary.tel}`,
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: SITE_CONFIG.email,
-    href: `mailto:${SITE_CONFIG.email}`,
-  },
-  {
-    icon: Clock,
-    label: "Hours",
-    value: SITE_CONFIG.hours,
-    href: null,
-  },
+// ⭐ Legal Links
+const legalLinks = [
+  { href: "#contact", label: "Privacy Policy" },
+  { href: "#contact", label: "Terms & Conditions" },
+  { href: "#contact", label: "Shipping Info" },
+  { href: "#contact", label: "Return Policy" },
 ];
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  // ⭐ Copy Address to Clipboard
-  const handleCopyAddress = async () => {
-    try {
-      await navigator.clipboard.writeText(SITE_CONFIG.address);
-      setCopied(true);
-      showSuccess("Address Copied!", "Full address copied to clipboard.");
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      showError("Copy Failed", "Please copy manually.");
-    }
-  };
-
-  const handleSubscribe = async (e) => {
-    e.preventDefault();
-    if (!email) return showError("Email Required", "Please enter your email.");
-
-    setLoading(true);
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showSuccess(
-          "Subscribed Successfully!",
-          "Thank you for joining our newsletter."
-        );
-        setEmail("");
-      } else {
-        showError("Subscription Failed", data.error);
-      }
-    } catch {
-      showError("Network Error", "Please try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="relative bg-brand-darker text-brand-cream/80 overflow-hidden">
-      {/* Decorative BG */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute -top-20 -left-20 w-96 h-96 border-2 border-brand-gold rotate-45" />
-        <div className="absolute -bottom-20 -right-20 w-96 h-96 border-2 border-brand-gold rounded-full" />
+
+      {/* ═══════ Decorative Background ═══════ */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] border-2 border-brand-gold rotate-45" />
+        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] border-2 border-brand-gold rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-brand-gold rounded-full" />
       </div>
 
       {/* Top Gold Line */}
       <div className="relative h-1 bg-gradient-to-r from-transparent via-brand-gold to-transparent" />
 
-      {/* Newsletter Strip */}
-      <div className="relative bg-brand-dark border-b border-brand-gold/20">
-        <div className="container-custom py-8 sm:py-10">
-          <div className="grid lg:grid-cols-2 gap-6 items-center">
-            <div className="text-center lg:text-left">
-              <h3 className="font-serif text-2xl sm:text-3xl text-brand-gold mb-2">
-                Stay in Touch
-              </h3>
-              <p className="text-sm sm:text-base text-brand-cream/70">
-                Get updates on new products, offers, and manufacturing insights.
-              </p>
-            </div>
-
-            <form
-              onSubmit={handleSubscribe}
-              className="flex flex-col sm:flex-row gap-3"
-            >
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-3 bg-brand-darker border border-brand-gold/30 rounded-full focus:outline-none focus:border-brand-gold text-brand-cream placeholder:text-brand-cream/40 text-base"
-                disabled={loading}
-              />
-              <button
-                type="submit"
-                disabled={loading}
-                className="shrink-0 flex items-center justify-center gap-2 px-6 py-3 bg-brand-gold hover:bg-brand-goldLight text-brand-dark rounded-full font-semibold transition-all disabled:opacity-50 h-12 min-h-0 shadow-lg shadow-brand-gold/30"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 size={18} className="animate-spin" />
-                    <span className="hidden sm:inline">Sending</span>
-                  </>
-                ) : (
-                  <>
-                    <Send size={18} />
-                    <span>Subscribe</span>
-                  </>
-                )}
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Footer */}
-      <div className="relative container-custom py-12 sm:py-16">
+      {/* ═══════ Section 1: Main Footer Content ═══════ */}
+      <div className="relative container-custom py-12 sm:py-14 lg:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
-          {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-4">
+
+          {/* ─── Column 1: Brand (5 cols) ─── */}
+          <div className="sm:col-span-2 lg:col-span-5">
             <Link
               href="#home"
               className="inline-flex items-center gap-3 mb-5 group"
             >
-              <img
-                src="/images/brand/tazmeel-logo.png"
-                alt={SITE_CONFIG.businessName}
-                className="w-12 h-12 object-contain group-hover:scale-110 transition-transform"
-                onError={(e) => {
-                  e.target.style.display = "none";
-                }}
-              />
-              <div>
-                <p className="font-serif text-xl text-brand-gold tracking-wide">
+              <div className="relative shrink-0">
+                <img
+                  src="/images/brand/navlogo.png"
+                  alt={SITE_CONFIG.businessName}
+                  className="w-14 h-14 sm:w-16 sm:h-16 object-contain group-hover:scale-110 transition-transform duration-300"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
+                />
+                <div className="absolute inset-0 bg-brand-gold/20 rounded-full blur-xl -z-10 group-hover:bg-brand-gold/30 transition-all" />
+              </div>
+              <div className="min-w-0">
+                <p className="font-serif text-2xl sm:text-3xl text-brand-gold tracking-wide leading-none mb-1">
                   TAZMEEL
                 </p>
-                <p className="text-[10px] tracking-[0.3em] text-brand-gold/70">
+                <p className="text-[10px] sm:text-xs tracking-[0.4em] text-brand-gold/70">
                   APPARELS
                 </p>
               </div>
             </Link>
 
-            <p className="text-sm leading-relaxed mb-5 text-brand-cream/70">
+            <p className="text-sm sm:text-base leading-relaxed mb-4 text-brand-cream/70 max-w-md">
               Dhaka-based manufacturer of trendy, high-quality Islamic and
               modest clothing since 2020. Blending traditional and modern
               styles for a global client base.
             </p>
 
-            <p className="text-xs text-brand-gold tracking-[0.25em] mb-5">
+            <p className="text-xs sm:text-sm text-brand-gold tracking-[0.25em] mb-6 flex items-center gap-2">
+              <Sparkles size={14} className="shrink-0" />
               CRAFTING STYLE WITH TAZMEEL
             </p>
 
-            {/* Social Icons */}
+            {/* Trust Badges */}
             <div className="flex flex-wrap gap-2">
-              {socialLinks.map((s) => {
-                const Icon = s.Icon;
-                return (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className={`w-10 h-10 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold transition-all duration-300 hover:text-white hover:border-transparent hover:scale-110 ${s.color}`}
-                  >
-                    <Icon size={16} />
-                  </a>
-                );
-              })}
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-gold/10 border border-brand-gold/20 rounded-full text-[10px] sm:text-xs text-brand-gold font-medium">
+                <Award size={12} className="shrink-0" />
+                Premium Quality
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-gold/10 border border-brand-gold/20 rounded-full text-[10px] sm:text-xs text-brand-gold font-medium">
+                <Building2 size={12} className="shrink-0" />
+                Since 2020
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-gold/10 border border-brand-gold/20 rounded-full text-[10px] sm:text-xs text-brand-gold font-medium">
+                <Shield size={12} className="shrink-0" />
+                Trusted Manufacturer
+              </span>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="lg:col-span-2">
-            <h4 className="font-serif text-lg text-brand-gold mb-4 flex items-center gap-2">
-              <span className="w-1 h-5 bg-brand-gold rounded" />
+          {/* ─── Column 2: Quick Links (3 cols) ─── */}
+          <div className="sm:col-span-1 lg:col-span-3">
+            <h4 className="font-serif text-lg sm:text-xl text-brand-gold mb-5 flex items-center gap-2">
+              <span className="w-1 h-5 bg-brand-gold rounded shrink-0" />
               Quick Links
             </h4>
-            <ul className="space-y-2 text-sm">
-              {quickLinks.map((l) => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="inline-flex items-center gap-2 text-brand-cream/70 hover:text-brand-gold transition-all group py-0.5"
-                  >
-                    <span className="w-1 h-1 bg-brand-gold/50 rounded-full group-hover:w-3 group-hover:bg-brand-gold transition-all" />
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div className="lg:col-span-3">
-            <h4 className="font-serif text-lg text-brand-gold mb-4 flex items-center gap-2">
-              <span className="w-1 h-5 bg-brand-gold rounded" />
-              Our Services
-            </h4>
-            <ul className="space-y-3 text-sm">
-              {services.map((s) => {
-                const Icon = s.icon;
+            <ul className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-x-4 gap-y-2.5 text-sm">
+              {quickLinks.map((l) => {
+                const Icon = l.icon;
                 return (
-                  <li
-                    key={s.label}
-                    className="flex items-center gap-3 text-brand-cream/70 hover:text-brand-gold transition group cursor-default"
-                  >
-                    <div className="w-9 h-9 rounded-lg bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center shrink-0 group-hover:bg-brand-gold/20 group-hover:scale-110 transition-all">
-                      <Icon size={16} className="text-brand-gold" />
-                    </div>
-                    <span>{s.label}</span>
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="inline-flex items-center gap-2 text-brand-cream/70 hover:text-brand-gold transition-all group py-0.5"
+                    >
+                      <Icon
+                        size={12}
+                        className="text-brand-gold/50 group-hover:text-brand-gold transition shrink-0"
+                      />
+                      <span className="truncate">{l.label}</span>
+                    </Link>
                   </li>
                 );
               })}
             </ul>
           </div>
 
-          {/* ⭐ Contact Info with 2 Buttons */}
-          <div className="lg:col-span-3">
-            <h4 className="font-serif text-lg text-brand-gold mb-4 flex items-center gap-2">
-              <span className="w-1 h-5 bg-brand-gold rounded" />
-              Contact Info
+          {/* ─── Column 3: Services (4 cols) ─── */}
+          <div className="sm:col-span-1 lg:col-span-4">
+            <h4 className="font-serif text-lg sm:text-xl text-brand-gold mb-5 flex items-center gap-2">
+              <span className="w-1 h-5 bg-brand-gold rounded shrink-0" />
+              Our Services
             </h4>
-
-            {/* ⭐ Address + Location — 2 Buttons */}
-            <div className="grid grid-cols-2 gap-2 mb-4">
-              {/* ⭐ Address Button — Copy */}
-              <button
-                onClick={handleCopyAddress}
-                className="group flex flex-col items-center gap-1.5 p-3 bg-brand-gold/5 hover:bg-brand-gold/15 border border-brand-gold/20 hover:border-brand-gold rounded-lg transition-all text-center min-w-0"
-                title="Click to copy address"
-              >
-                <div className="w-8 h-8 rounded-full bg-brand-gold/15 flex items-center justify-center group-hover:bg-brand-gold/30 transition-colors">
-                  {copied ? (
-                    <Check size={14} className="text-green-400" />
-                  ) : (
-                    <MapPin size={14} className="text-brand-gold" />
-                  )}
-                </div>
-                <span className="text-[9px] font-bold text-brand-gold tracking-wider">
-                  ADDRESS
-                </span>
-                <span className="text-[9px] text-brand-cream/60 leading-tight">
-                  {copied ? "Copied!" : "Tap to copy"}
-                </span>
-              </button>
-
-              {/* ⭐ Location Button — Maps */}
-              <a
-                href={getMapLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col items-center gap-1.5 p-3 bg-brand-gold/5 hover:bg-brand-gold/15 border border-brand-gold/20 hover:border-brand-gold rounded-lg transition-all text-center min-w-0"
-                title="Open in Google Maps"
-              >
-                <div className="w-8 h-8 rounded-full bg-brand-gold/15 flex items-center justify-center group-hover:bg-brand-gold/30 transition-colors">
-                  <Navigation size={14} className="text-brand-gold" />
-                </div>
-                <span className="text-[9px] font-bold text-brand-gold tracking-wider">
-                  LOCATION
-                </span>
-                <span className="text-[9px] text-brand-cream/60 leading-tight inline-flex items-center gap-0.5">
-                  Live Map
-                  <ExternalLink size={8} />
-                </span>
-              </a>
-            </div>
-
-            {/* Other Contact Info */}
-            <ul className="space-y-4 text-sm">
-              {otherContactInfo.map((c) => {
-                const Icon = c.icon;
-                const content = (
-                  <div className="flex gap-3 items-start">
-                    <div className="w-9 h-9 rounded-lg bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center shrink-0 group-hover:bg-brand-gold/20 group-hover:scale-110 transition-all">
+            <ul className="space-y-3">
+              {services.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <li
+                    key={s.label}
+                    className="group flex items-start gap-3 p-2.5 -mx-2.5 rounded-lg hover:bg-brand-gold/5 transition-all cursor-default"
+                  >
+                    <div className="shrink-0 w-9 h-9 rounded-lg bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center group-hover:bg-brand-gold/20 group-hover:scale-110 transition-all">
                       <Icon size={16} className="text-brand-gold" />
                     </div>
-                    <div className="min-w-0">
-                      <p className="text-[10px] text-brand-gold/70 tracking-widest mb-0.5">
-                        {c.label.toUpperCase()}
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-brand-cream group-hover:text-brand-gold transition">
+                        {s.label}
                       </p>
-                      <p className="text-xs sm:text-sm text-brand-cream/70 group-hover:text-brand-gold transition break-words">
-                        {c.value}
+                      <p className="text-[11px] text-brand-cream/50 group-hover:text-brand-cream/70 transition">
+                        {s.desc}
                       </p>
                     </div>
-                  </div>
-                );
-
-                return (
-                  <li key={c.label}>
-                    {c.href ? (
-                      <a
-                        href={c.href}
-                        target={
-                          c.href.startsWith("http") ? "_blank" : undefined
-                        }
-                        rel={
-                          c.href.startsWith("http")
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
-                        className="block group"
-                      >
-                        {content}
-                      </a>
-                    ) : (
-                      <div className="group">{content}</div>
-                    )}
                   </li>
                 );
               })}
             </ul>
           </div>
         </div>
+
+        {/* ═══════ Section 2: Contact Quick Strip ═══════ */}
+        <div className="mt-10 sm:mt-12 pt-8 border-t border-brand-gold/10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {/* Phone */}
+            <a
+              href={getTelLink()}
+              className="group flex items-center gap-3 p-3 sm:p-4 bg-brand-gold/5 border border-brand-gold/15 rounded-lg hover:bg-brand-gold/10 hover:border-brand-gold/30 transition-all"
+            >
+              <div className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 group-hover:scale-110 transition-all">
+                <Phone size={16} className="text-brand-gold" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] text-brand-gold/70 tracking-widest">
+                  CALL US
+                </p>
+                <p className="text-xs sm:text-sm font-medium text-brand-cream group-hover:text-brand-gold transition truncate">
+                  {SITE_CONFIG.phonePrimary.display}
+                </p>
+              </div>
+            </a>
+
+            {/* Email */}
+            <a
+              href={getMailLink()}
+              className="group flex items-center gap-3 p-3 sm:p-4 bg-brand-gold/5 border border-brand-gold/15 rounded-lg hover:bg-brand-gold/10 hover:border-brand-gold/30 transition-all"
+            >
+              <div className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 group-hover:scale-110 transition-all">
+                <Mail size={16} className="text-brand-gold" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] text-brand-gold/70 tracking-widest">
+                  EMAIL US
+                </p>
+                <p className="text-xs sm:text-sm font-medium text-brand-cream group-hover:text-brand-gold transition truncate">
+                  {SITE_CONFIG.email}
+                </p>
+              </div>
+            </a>
+
+            {/* Hours */}
+            <div className="group flex items-center gap-3 p-3 sm:p-4 bg-brand-gold/5 border border-brand-gold/15 rounded-lg">
+              <div className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-brand-gold/10 flex items-center justify-center">
+                <Clock size={16} className="text-brand-gold" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] text-brand-gold/70 tracking-widest">
+                  WORKING HOURS
+                </p>
+                <p className="text-xs sm:text-sm font-medium text-brand-cream truncate">
+                  {SITE_CONFIG.hours}
+                </p>
+              </div>
+            </div>
+
+            {/* Location */}
+            <a
+              href={getMapLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-3 p-3 sm:p-4 bg-brand-gold/5 border border-brand-gold/15 rounded-lg hover:bg-brand-gold/10 hover:border-brand-gold/30 transition-all"
+            >
+              <div className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 group-hover:scale-110 transition-all">
+                <MapPin size={16} className="text-brand-gold" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] text-brand-gold/70 tracking-widest">
+                  VISIT US
+                </p>
+                <p className="text-xs sm:text-sm font-medium text-brand-cream group-hover:text-brand-gold transition inline-flex items-center gap-1">
+                  Get Directions
+                  <ExternalLink size={10} className="shrink-0" />
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="relative border-t border-brand-gold/20 bg-brand-dark/50">
-        <div className="container-custom py-5">
+      {/* ═══════ Section 3: Legal Links Strip ═══════ */}
+      <div className="relative border-t border-brand-gold/10">
+        <div className="container-custom py-4 sm:py-5">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs sm:text-sm">
+            {legalLinks.map((l, i) => (
+              <span key={l.label} className="flex items-center gap-4 sm:gap-6">
+                <Link
+                  href={l.href}
+                  className="text-brand-cream/50 hover:text-brand-gold transition"
+                >
+                  {l.label}
+                </Link>
+                {i < legalLinks.length - 1 && (
+                  <span className="text-brand-gold/30 hidden sm:inline">•</span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════ Section 4: Bottom Bar ═══════ */}
+      <div className="relative border-t border-brand-gold/10 bg-brand-dark/50">
+        <div className="container-custom py-5 sm:py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
+
+            {/* Copyright */}
             <p className="text-brand-cream/50 text-center md:text-left">
-              © {new Date().getFullYear()}{" "}
+              © {currentYear}{" "}
               <span className="text-brand-gold font-medium">
                 Tazmeel Apparels
               </span>
               . All rights reserved.
             </p>
 
-            <p className="text-brand-cream/50 flex items-center gap-1.5 text-center">
+            {/* Made with love */}
+            <p className="text-brand-cream/50 flex items-center justify-center gap-1.5 text-center">
               Made with{" "}
               <Heart
-                size={14}
-                className="text-red-400 fill-red-400 animate-pulse"
+                size={13}
+                className="text-red-400 fill-red-400 animate-pulse shrink-0"
               />{" "}
               in Dhaka, Bangladesh
             </p>
 
+            {/* Right side links */}
             <div className="flex items-center gap-4">
-              <a
+              <Link
+                href="/admin/login"
+                className="text-brand-cream/50 hover:text-brand-gold transition"
+              >
+                Admin
+              </Link>
+              <span className="text-brand-gold/30">•</span>
+              <Link
                 href="#contact"
                 className="text-brand-cream/50 hover:text-brand-gold transition"
               >
                 Support
-              </a>
-              <span className="text-brand-gold/30">•</span>
-              <a
-                href={getWhatsAppLink(
-                  "Hello Tazmeel Apparels! I have a question."
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-cream/50 hover:text-brand-gold transition"
-              >
-                WhatsApp
-              </a>
+              </Link>
               <span className="text-brand-gold/30">•</span>
               <button
                 onClick={scrollToTop}
@@ -450,8 +353,8 @@ export default function Footer() {
                 aria-label="Back to top"
               >
                 <ArrowUp
-                  size={16}
-                  className="group-hover:-translate-y-1 transition-transform"
+                  size={15}
+                  className="group-hover:-translate-y-1 transition-transform shrink-0"
                 />
                 Top
               </button>
